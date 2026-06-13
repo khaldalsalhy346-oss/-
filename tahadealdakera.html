@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المسابقة السريعة</title>
+    <style>
+        body {
+            background: linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%);
+            font-family: sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .quiz-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            width: 420px;
+            max-width: 90%;
+            overflow: hidden;
+        }
+        .header { padding: 40px 30px; text-align: center; }
+        h2 { margin-bottom: 25px; color: #333; }
+        .input-group { margin-bottom: 18px; text-align: right; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        .input-group input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+        .input-group input:focus { border-color: #8e44ad; outline: none; }
+        ul { list-style: none; padding: 0; margin: 0; }
+        ul li { font-size: 18px; margin-bottom: 12px; background: #f8f9fa; padding: 15px; border-radius: 6px; border: 1px solid #eee; text-align: right; display: flex; align-items: center; }
+        ul li input { margin-left: 10px; transform: scale(1.2); cursor: pointer; }
+        ul li label { cursor: pointer; width: 100%; }
+        button { background-color: #8e44ad; color: #fff; border: none; display: block; width: 100%; cursor: pointer; font-size: 18px; padding: 18px; font-weight: bold; transition: 0.2s; }
+        button:hover { background-color: #732d91; }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-card">
+        <form action="https://formspree.io/f/xgobpdzw" method="POST" id="main-form">
+            
+            <div id="step-1" class="header">
+                <h2>تسجيل دخول المتسابق</h2>
+                <div class="input-group">
+                    <label>الاسم الثلاثي:</label>
+                    <input type="text" name="الاسم الثلاثي" required placeholder="اكتب اسمك هنا">
+                </div>
+                <div class="input-group">
+                    <label>رقم الهاتف:</label>
+                    <input type="tel" name="رقم الهاتف" required placeholder="07xxxxxxxxx">
+                </div>
+                <button type="button" onclick="goToStep2()">التالي (الانتقال للسؤال)</button>
+            </div>
+
+            <div id="step-2" class="header" style="display: none;">
+                <h2>ما هو الكوكب الأقرب إلى الشمس؟</h2>
+                <ul>
+                    <li>
+                        <input type="radio" name="تصويت المتسابق" id="a" value="المريخ">
+                        <label for="a">المريخ</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="تصويت المتسابق" id="b" value="عطارد">
+                        <label for="b">عطارد</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="تصويت المتسابق" id="c" value="الزهرة">
+                        <label for="c">الزهرة</label>
+                    </li>
+                </ul>
+                <br>
+                <button type="submit" onclick="return checkAnswer()">تصويت واختيار الصح</button>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        function goToStep2() {
+            const name = document.querySelector('input[name="الاسم الثلاثي"]').value;
+            const phone = document.querySelector('input[name="رقم الهاتف"]').value;
+            
+            if(name === "" || phone === "") {
+                alert("الرجاء ملء الاسم ورقم الهاتف أولاً!");
+                return;
+            }
+            
+            document.getElementById('step-1').style.display = 'none';
+            document.getElementById('step-2').style.display = 'block';
+        }
+
+        function checkAnswer() {
+            const checked = document.querySelector('input[name="تصويت المتسابق"]:checked');
+            if(!checked) {
+                alert("الرجاء اختيار إجابة واحدة للتصويت!");
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+</body>
+</html>
